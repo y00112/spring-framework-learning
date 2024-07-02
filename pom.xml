@@ -14,11 +14,14 @@
         <module>spring-ioc-customize-bean</module>
         <module>spring-ioc-resource</module>
         <module>spring-ioc-properties</module>
+        <module>spring-ioc-profile</module>
+        <module>spring-aop-aspect</module>
+        <module>spring-aop-annotation</module>
     </modules>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

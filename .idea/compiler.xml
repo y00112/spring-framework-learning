@@ -8,10 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring-ioc-customize-bean" />
+        <module name="spring-ioc-profile" />
+        <module name="spring-aop-aspect" />
+        <module name="spring-ioc-properties" />
+        <module name="spring-aop-annotation" />
         <module name="spring-ioc-appcontext" />
         <module name="spring-ioc-appcontext-annotation" />
         <module name="spring-ioc-resource" />
-        <module name="spring-ioc-properties" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
