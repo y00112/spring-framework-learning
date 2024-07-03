@@ -17,6 +17,9 @@
         <module>spring-ioc-profile</module>
         <module>spring-aop-aspect</module>
         <module>spring-aop-annotation</module>
+        <module>spring-orm-jdbc</module>
+        <module>spring-orm-jdbc-transaction</module>
+        <module>spring-orm-jdbc-dao</module>
     </modules>
 
     <properties>
