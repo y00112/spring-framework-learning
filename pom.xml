@@ -20,6 +20,10 @@
         <module>spring-orm-jdbc</module>
         <module>spring-orm-jdbc-transaction</module>
         <module>spring-orm-jdbc-dao</module>
+        <module>spring-orm-hibernate</module>
+        <module>spring-orm-jpa</module>
+        <module>spring-orm-mybatis</module>
+        <module>spring-orm-zhaoyssdb</module>
     </modules>
 
     <properties>
