@@ -10,15 +10,15 @@ import java.lang.reflect.Method;
 
 public class BeanProperty {
     // Method
-    private Method getter;
-    private Method setter;
+    final Method getter;
+    final Method setter;
 
     // Java type
-    private Class<?> propertyType;
+    final Class<?> propertyType;
     // Java bean property name
-    private String propertyName;
+    final String propertyName;
     // Table column name
-    private String columnName;
+    final String columnName;
 
     boolean isId() {
         return this.getter.isAnnotationPresent(Id.class);
@@ -38,6 +38,14 @@ public class BeanProperty {
 
     boolean isInsertable() {
         if (isIdentityId()) {
+            return false;
+        }
+        Column col = this.getter.getAnnotation(Column.class);
+        return col == null || col.updatable();
+    }
+
+    boolean isUpdatable(){
+        if (isId()){
             return false;
         }
         Column col = this.getter.getAnnotation(Column.class);

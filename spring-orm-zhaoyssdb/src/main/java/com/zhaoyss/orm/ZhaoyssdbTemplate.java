@@ -1,28 +1,48 @@
 package com.zhaoyss.orm;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.*;
 
 
 public class ZhaoyssdbTemplate {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private JdbcTemplate jdbcTemplate;
+    final JdbcTemplate jdbcTemplate;
 
-    public ZhaoyssdbTemplate(JdbcTemplate jdbcTemplate,String basePackage){
+    final Map<Class<?>, Mapper<?>> classMapping;
+
+
+    public ZhaoyssdbTemplate(JdbcTemplate jdbcTemplate, String basePackage) {
         this.jdbcTemplate = jdbcTemplate;
         List<Class<?>> classes = scanEntities(basePackage);
-
+        Map<Class<?>, Mapper<?>> classMapping = new HashMap<>();
+        try {
+            for (Class<?> clazz : classes) {
+                logger.info("Found class: " + clazz.getName());
+                Mapper<?> mapper = new Mapper<>(clazz);
+                classMapping.put(clazz, mapper);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        this.classMapping = classMapping;
     }
 
     private List<Class<?>> scanEntities(String basePackage) {
@@ -30,7 +50,7 @@ public class ZhaoyssdbTemplate {
         provider.addIncludeFilter(new AnnotationTypeFilter(Entity.class));
         List<Class<?>> classes = new ArrayList<>();
         Set<BeanDefinition> beans = provider.findCandidateComponents(basePackage);
-        for (BeanDefinition bean:beans){
+        for (BeanDefinition bean : beans) {
             try {
                 classes.add(Class.forName(bean.getBeanClassName()));
             } catch (ClassNotFoundException e) {
@@ -40,4 +60,111 @@ public class ZhaoyssdbTemplate {
         return classes;
     }
 
+    public <T> T get(Class<T> clazz, Object id) {
+        T t = fetch(clazz, id);
+        if (t == null) {
+            throw new EntityNotFoundException(clazz.getSimpleName());
+        }
+        return t;
+    }
+
+    private <T> T fetch(Class<T> clazz, Object id) {
+        Mapper<T> mapper = getMapper(clazz);
+        logger.info("SQL: " + mapper.selectSQL);
+        List<T> list = (List<T>) jdbcTemplate.query(mapper.selectSQL, mapper.rowMapper, new Object[]{id});
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+
+    }
+
+    /**
+     * 通过class获取Mapper
+     *
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    <T> Mapper<T> getMapper(Class<T> clazz) {
+        Mapper<T> mapper = (Mapper<T>) this.classMapping.get(clazz);
+        if (mapper == null) {
+            throw new RuntimeException("Target class is not a registered entity: " + clazz.getName());
+        }
+        return mapper;
+    }
+
+
+    public <T> void delete(T bean) {
+        try {
+            Mapper<?> mapper = getMapper(bean.getClass());
+            delete(bean.getClass(), mapper.getIdValue(bean));
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public <T> void delete(Class<T> clazz, Object id) {
+        Mapper<?> mapper = getMapper(clazz);
+        logger.info("SQL: " + mapper.deleteSQL);
+        jdbcTemplate.update(mapper.deleteSQL, id);
+    }
+
+    public <T> void update(T bean) {
+        try {
+            Mapper<?> mapper = getMapper(bean.getClass());
+            Object[] args = new Object[mapper.updatableProperties.size() + 1];
+            int n = 0;
+            for (BeanProperty prop : mapper.updatableProperties) {
+                args[n] = prop.getter.invoke(bean);
+                n++;
+            }
+            args[n] = mapper.id.getter.invoke(bean);
+            logger.info("SQL: " + mapper.updateSQL);
+            jdbcTemplate.update(mapper.updateSQL, args);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public <T> void insert(T bean) {
+        try {
+            int rows;
+            final Mapper<?> mapper = getMapper(bean.getClass());
+            Object[] args = new Object[mapper.insertableProperties.size()];
+            int n = 0;
+            for (BeanProperty prop : mapper.insertableProperties) {
+                args[n] = prop.getter.invoke(bean);
+                n++;
+            }
+            logger.info("SQL: " + mapper.insertSQL);
+            // 使用 identityId
+            if (mapper.id.isIdentityId()) {
+                KeyHolder keyHolder = new GeneratedKeyHolder();
+                rows = jdbcTemplate.update(new PreparedStatementCreator() {
+                    @Override
+                    public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                        PreparedStatement ps = con.prepareStatement(mapper.insertSQL, Statement.RETURN_GENERATED_KEYS);
+                        for (int i = 0; i < args.length; i++) {
+                            ps.setObject(i + 1,args[i]);
+                        }
+                        return ps;
+                    }
+                },keyHolder);
+                if (rows == 1){
+                    mapper.id.setter.invoke(bean,keyHolder.getKey());
+                }
+            }else {
+                // id是指定的
+                rows = jdbcTemplate.update(mapper.insertSQL,args);
+            }
+
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
