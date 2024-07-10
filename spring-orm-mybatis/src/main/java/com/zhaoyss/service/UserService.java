@@ -2,7 +2,6 @@ package com.zhaoyss.service;
 
 import com.zhaoyss.entity.User;
 import com.zhaoyss.mapper.UserMapper;
-import com.zhaoyss.orm.ZhaoyssdbTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
