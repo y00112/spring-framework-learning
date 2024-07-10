@@ -24,6 +24,7 @@
         <module>spring-orm-jpa</module>
         <module>spring-orm-mybatis</module>
         <module>spring-orm-zhaoyssdb</module>
+        <module>spring-framework-test</module>
     </modules>
 
     <properties>

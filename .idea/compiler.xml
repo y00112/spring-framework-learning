@@ -16,6 +16,7 @@
         <module name="spring-aop-aspect" />
         <module name="spring-ioc-properties" />
         <module name="spring-aop-annotation" />
+        <module name="spring-framework-test" />
         <module name="spring-ioc-appcontext" />
         <module name="spring-orm-zhaoyssdb" />
         <module name="spring-orm-jdbc-transaction" />

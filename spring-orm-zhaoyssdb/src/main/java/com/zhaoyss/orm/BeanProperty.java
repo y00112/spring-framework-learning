@@ -8,6 +8,9 @@ import jakarta.persistence.Id;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
+/**
+ * bean 的属性
+ */
 public class BeanProperty {
     // Method
     final Method getter;

@@ -6,6 +6,11 @@ import jakarta.persistence.NonUniqueResultException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ *
+ * @param <T>
+ */
 public class Criteria<T> {
     ZhaoyssdbTemplate zhaoyssdbTemplate;
     Mapper<T> mapper;
