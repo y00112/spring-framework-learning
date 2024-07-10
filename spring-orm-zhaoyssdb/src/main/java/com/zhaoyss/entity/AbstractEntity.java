@@ -24,7 +24,7 @@ public class AbstractEntity {
         this.id = id;
     }
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = true)
     public long getCreatedAt() {
         return createdAt;
     }

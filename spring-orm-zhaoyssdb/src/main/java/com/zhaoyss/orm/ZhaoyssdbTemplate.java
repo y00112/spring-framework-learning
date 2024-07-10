@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
@@ -45,6 +46,12 @@ public class ZhaoyssdbTemplate {
         this.classMapping = classMapping;
     }
 
+    /**
+     * 根据包扫描 Entity.class 的实例
+     *
+     * @param basePackage
+     * @return
+     */
     private List<Class<?>> scanEntities(String basePackage) {
         ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
         provider.addIncludeFilter(new AnnotationTypeFilter(Entity.class));
@@ -60,26 +67,10 @@ public class ZhaoyssdbTemplate {
         return classes;
     }
 
-    public <T> T get(Class<T> clazz, Object id) {
-        T t = fetch(clazz, id);
-        if (t == null) {
-            throw new EntityNotFoundException(clazz.getSimpleName());
-        }
-        return t;
-    }
 
-    private <T> T fetch(Class<T> clazz, Object id) {
-        Mapper<T> mapper = getMapper(clazz);
-        logger.info("SQL: " + mapper.selectSQL);
-        List<T> list = (List<T>) jdbcTemplate.query(mapper.selectSQL, mapper.rowMapper, new Object[]{id});
-        if (list.isEmpty()) {
-            return null;
-        }
-        return list.get(0);
-
-    }
 
     /**
+     * 映射
      * 通过class获取Mapper
      *
      * @param clazz
@@ -94,41 +85,12 @@ public class ZhaoyssdbTemplate {
         return mapper;
     }
 
-
-    public <T> void delete(T bean) {
-        try {
-            Mapper<?> mapper = getMapper(bean.getClass());
-            delete(bean.getClass(), mapper.getIdValue(bean));
-        } catch (ReflectiveOperationException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public <T> void delete(Class<T> clazz, Object id) {
-        Mapper<?> mapper = getMapper(clazz);
-        logger.info("SQL: " + mapper.deleteSQL);
-        jdbcTemplate.update(mapper.deleteSQL, id);
-    }
-
-    public <T> void update(T bean) {
-        try {
-            Mapper<?> mapper = getMapper(bean.getClass());
-            Object[] args = new Object[mapper.updatableProperties.size() + 1];
-            int n = 0;
-            for (BeanProperty prop : mapper.updatableProperties) {
-                args[n] = prop.getter.invoke(bean);
-                n++;
-            }
-            args[n] = mapper.id.getter.invoke(bean);
-            logger.info("SQL: " + mapper.updateSQL);
-            jdbcTemplate.update(mapper.updateSQL, args);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    /**
+     * 增
+     *
+     * @param bean
+     * @param <T>
+     */
     public <T> void insert(T bean) {
         try {
             int rows;
@@ -167,4 +129,104 @@ public class ZhaoyssdbTemplate {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * 删
+     *
+     * @param bean
+     * @param <T>
+     */
+    public <T> void delete(T bean) {
+        try {
+            Mapper<?> mapper = getMapper(bean.getClass());
+            delete(bean.getClass(), mapper.getIdValue(bean));
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public <T> void delete(Class<T> clazz, Object id) {
+        Mapper<?> mapper = getMapper(clazz);
+        logger.info("SQL: " + mapper.deleteSQL);
+        int update = jdbcTemplate.update(mapper.deleteSQL, id);
+        System.out.println(update);
+    }
+    /**
+     * 改
+     *
+     * @param bean
+     * @param <T>
+     */
+    public <T> void update(T bean) {
+        try {
+            Mapper<?> mapper = getMapper(bean.getClass());
+            Object[] args = new Object[mapper.updatableProperties.size() + 1];
+            int n = 0;
+            for (BeanProperty prop : mapper.updatableProperties) {
+                args[n] = prop.getter.invoke(bean);
+                n++;
+            }
+            args[n] = mapper.id.getter.invoke(bean);
+            logger.info("SQL: " + mapper.updateSQL);
+            jdbcTemplate.update(mapper.updateSQL, args);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    /**
+     * 查 - 通过 id 查询
+     *
+     * @param clazz
+     * @param id
+     * @return
+     * @param <T>
+     */
+    public <T> T get(Class<T> clazz, Object id) {
+        T t = fetch(clazz, id);
+        if (t == null) {
+            throw new EntityNotFoundException(clazz.getSimpleName());
+        }
+        return t;
+    }
+
+    private <T> T fetch(Class<T> clazz, Object id) {
+        Mapper<T> mapper = getMapper(clazz);
+        logger.info("SQL: " + mapper.selectSQL);
+        List<T> list = (List<T>) jdbcTemplate.query(mapper.selectSQL, mapper.rowMapper, id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+
+    }
+
+
+    /**
+     * 链式调用
+     * Select ... from ...
+     *
+     * @param selectFields
+     * @return
+     */
+    public Select select(String... selectFields){
+        return new Select(new Criteria(this),selectFields);
+    }
+
+    /**
+     * 链式调用
+     * select ... FROM ...
+     *
+     * @param entityClass
+     * @return
+     * @param <T>
+     */
+    public <T> From<T> from(Class<T> entityClass){
+        Mapper<T> mapper = getMapper(entityClass);
+        return new From<>(new Criteria<>(this),mapper);
+    }
+
 }

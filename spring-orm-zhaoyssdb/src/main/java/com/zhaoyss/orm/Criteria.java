@@ -27,6 +27,7 @@ public class Criteria<T> {
         StringBuilder sb = new StringBuilder(128);
         sb.append("SELECT ");
         sb.append(select == null ? "*" : String.join(", ", select));
+        sb.append(" FROM ").append(mapper.tableName);
         if (where != null) {
             sb.append(" WHERE ").append(String.join(", ", where));
         }

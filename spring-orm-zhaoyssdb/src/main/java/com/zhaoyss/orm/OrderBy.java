@@ -28,6 +28,12 @@ public class OrderBy<T> extends CriteriaQuery<T> {
         return this;
     }
 
+    /**
+     * 检查 orderBy 是属性
+     *
+     * @param orderBy
+     * @return
+     */
     private String checkProperty(String orderBy) {
         String prop = null;
         String upper = orderBy.toUpperCase();

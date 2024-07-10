@@ -1,4 +1,4 @@
-package com.zhaoyss;
+package com.zhaoyss.init;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;

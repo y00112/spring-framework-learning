@@ -71,7 +71,7 @@ public class From<T> extends CriteriaQuery<T>{
     /**
      * 获取唯一查询结果，如果没有找到或者有多个值，则引发异常
      *
-     * @return T demoInstance
+     * @return T
      * @return jakarta.persistence.NoResultException 如果result为空
      * @return jakarta.persistence.NonUniqueResultException 如果result有多个值
      */

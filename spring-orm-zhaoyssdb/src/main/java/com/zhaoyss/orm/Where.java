@@ -20,6 +20,12 @@ public class Where<T> extends CriteriaQuery<T> {
         }
     }
 
+    /**
+     * 添加 limit 子句
+     *
+     * @param maxResults
+     * @return
+     */
     public Limit<T> limit(int maxResults) {
         return limit(0, maxResults);
     }
@@ -28,6 +34,12 @@ public class Where<T> extends CriteriaQuery<T> {
         return new Limit<>(this.criteria, offset, maxResults);
     }
 
+    /**
+     * 添加 orderBy 子句
+     *
+     * @param orderBy
+     * @return
+     */
     public OrderBy<T> orderBy(String orderBy) {
         return new OrderBy<>(this.criteria, orderBy);
     }

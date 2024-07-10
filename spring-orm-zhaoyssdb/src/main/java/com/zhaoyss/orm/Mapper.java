@@ -1,18 +1,16 @@
 package com.zhaoyss.orm;
 
-import jakarta.persistence.Id;
+
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
+import java.beans.*;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class Mapper<T> {
 
@@ -53,7 +51,7 @@ public class Mapper<T> {
         this.updateSQL = "UPDATE " + this.tableName + " SET "
                 + String.join(", ", this.updatableProperties.stream().map(p -> p.columnName + " = ?").toArray(String[]::new)) + " WHERE " + this.id.columnName
                 + " = ?";
-        this.deleteSQL = "DELETE FROM " + this.tableName + " WHERE" + this.id.columnName + " = ?";
+        this.deleteSQL = "DELETE FROM " + this.tableName + " WHERE " + this.id.columnName + " = ?";
         this.rowMapper = new BeanPropertyRowMapper<>(this.entityClass);
     }
 
@@ -96,6 +94,9 @@ public class Mapper<T> {
             Method getter = pd.getReadMethod();
             Method setter = pd.getWriteMethod();
             // 忽略@Transient
+            if (getter != null && getter.isAnnotationPresent(Transient.class)) {
+                continue;
+            }
             if (getter != null && setter != null) {
                 properties.add(new BeanProperty(pd));
             } else {
