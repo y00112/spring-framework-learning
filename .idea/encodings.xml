@@ -19,6 +19,12 @@
     <file url="file://$PROJECT_DIR$/spring-ioc-properties/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-ioc-resource/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-ioc-resource/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-mvc-project-filter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-mvc-project-filter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-mvc-project-interceptor/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-mvc-project-interceptor/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-mvc-project/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-mvc-project/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-orm-hibernate/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-orm-hibernate/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-orm-jdbc-dao/src/main/java" charset="UTF-8" />
@@ -35,5 +41,7 @@
     <file url="file://$PROJECT_DIR$/spring-orm-zhaoyssdb/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zhaoyss-tcp-test/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zhaoyss-tcp-test/src/main/resources" charset="UTF-8" />
   </component>
 </project>

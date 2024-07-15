@@ -10,12 +10,16 @@
         <module name="spring-orm-jdbc" />
         <module name="spring-orm-jpa" />
         <module name="spring-orm-mybatis" />
+        <module name="spring-mvc-project" />
+        <module name="spring-mvc-project-interceptor" />
         <module name="spring-orm-hibernate" />
+        <module name="spring-mvc-project-filter" />
         <module name="spring-ioc-customize-bean" />
         <module name="spring-ioc-profile" />
         <module name="spring-aop-aspect" />
         <module name="spring-ioc-properties" />
         <module name="spring-aop-annotation" />
+        <module name="zhaoyss-tcp-test" />
         <module name="spring-framework-test" />
         <module name="spring-ioc-appcontext" />
         <module name="spring-orm-zhaoyssdb" />

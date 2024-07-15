@@ -25,6 +25,10 @@
         <module>spring-orm-mybatis</module>
         <module>spring-orm-zhaoyssdb</module>
         <module>spring-framework-test</module>
+        <module>spring-mvc-project</module>
+        <module>spring-mvc-project-filter</module>
+        <module>spring-mvc-project-interceptor</module>
+        <module>zhaoyss-tcp-test</module>
     </modules>
 
     <properties>
