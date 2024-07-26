@@ -20,6 +20,7 @@
         <module name="spring-ioc-profile" />
         <module name="spring-aop-aspect" />
         <module name="spring-mvc-project-i18n" />
+        <module name="spring-mvc-project-websocket" />
         <module name="spring-ioc-properties" />
         <module name="spring-aop-annotation" />
         <module name="spring-framework-test" />

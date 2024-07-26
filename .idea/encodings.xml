@@ -29,6 +29,8 @@
     <file url="file://$PROJECT_DIR$/spring-mvc-project-i18n/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-mvc-project-interceptor/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-mvc-project-interceptor/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-mvc-project-websocket/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-mvc-project-websocket/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-mvc-project/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-mvc-project/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-orm-hibernate/src/main/java" charset="UTF-8" />

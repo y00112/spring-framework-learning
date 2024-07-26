@@ -32,6 +32,7 @@
         <module>spring-mvc-project-cors</module>
         <module>spring-mvc-project-i18n</module>
         <module>spring-mvc-project-async</module>
+        <module>spring-mvc-project-websocket</module>
     </modules>
 
     <properties>

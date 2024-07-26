@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+
+	<!-- 在web应用中启动Spring容器，有很多方法，可以通过Listener启动，也可以通过Servlet启动，还可以使用XML配置，也可以使用注解配置	-->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>com.zhaoyss.WebConfig</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+</web-app>
