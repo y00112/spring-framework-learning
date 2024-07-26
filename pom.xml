@@ -28,7 +28,10 @@
         <module>spring-mvc-project</module>
         <module>spring-mvc-project-filter</module>
         <module>spring-mvc-project-interceptor</module>
-        <module>zhaoyss-tcp-test</module>
+        <module>spring-orm-zhaoyssdb-test</module>
+        <module>spring-mvc-project-cors</module>
+        <module>spring-mvc-project-i18n</module>
+        <module>spring-mvc-project-async</module>
     </modules>
 
     <properties>

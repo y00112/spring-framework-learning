@@ -9,26 +9,34 @@
         <outputRelativeToContentRoot value="true" />
         <module name="spring-orm-jdbc" />
         <module name="spring-orm-jpa" />
+        <module name="spring-mvc-project-async" />
         <module name="spring-orm-mybatis" />
         <module name="spring-mvc-project" />
         <module name="spring-mvc-project-interceptor" />
         <module name="spring-orm-hibernate" />
         <module name="spring-mvc-project-filter" />
+        <module name="spring-orm-zhaoyssdb-test" />
         <module name="spring-ioc-customize-bean" />
         <module name="spring-ioc-profile" />
         <module name="spring-aop-aspect" />
+        <module name="spring-mvc-project-i18n" />
         <module name="spring-ioc-properties" />
         <module name="spring-aop-annotation" />
-        <module name="zhaoyss-tcp-test" />
         <module name="spring-framework-test" />
         <module name="spring-ioc-appcontext" />
         <module name="spring-orm-zhaoyssdb" />
+        <module name="spring-mvc-project-cors" />
         <module name="spring-orm-jdbc-transaction" />
         <module name="spring-ioc-appcontext-annotation" />
         <module name="spring-ioc-resource" />
         <module name="spring-orm-jdbc-dao" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="17">
+      <module name="spring-mvc-project-cor" target="17" />
+      <module name="spring-mvc-project-interceptor (1)" target="17" />
+      <module name="spring-mvc-project-interceptor (2)" target="17" />
+      <module name="zhaoyss-tcp-test" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
