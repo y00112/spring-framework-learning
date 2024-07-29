@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
@@ -41,6 +42,7 @@ import java.io.File;
 @EnableWebMvc // 启用 Spring MVC
 @EnableTransactionManagement
 @PropertySource("classpath:/jdbc.properties")
+@EnableWebSocket
 public class WebConfig {
     public static void main(String[] args) throws LifecycleException {
         Tomcat tomcat = new Tomcat();
