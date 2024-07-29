@@ -14,22 +14,23 @@
         <module name="spring-mvc-project" />
         <module name="spring-mvc-project-interceptor" />
         <module name="spring-orm-hibernate" />
-        <module name="spring-mvc-project-filter" />
-        <module name="spring-orm-zhaoyssdb-test" />
-        <module name="spring-ioc-customize-bean" />
         <module name="spring-ioc-profile" />
         <module name="spring-aop-aspect" />
-        <module name="spring-mvc-project-i18n" />
-        <module name="spring-mvc-project-websocket" />
-        <module name="spring-ioc-properties" />
         <module name="spring-aop-annotation" />
         <module name="spring-framework-test" />
         <module name="spring-ioc-appcontext" />
+        <module name="spring-ioc-resource" />
+        <module name="spring-javamail" />
+        <module name="spring-mvc-project-filter" />
+        <module name="spring-orm-zhaoyssdb-test" />
+        <module name="spring-ioc-customize-bean" />
+        <module name="spring-mvc-project-i18n" />
+        <module name="spring-mvc-project-websocket" />
+        <module name="spring-ioc-properties" />
         <module name="spring-orm-zhaoyssdb" />
         <module name="spring-mvc-project-cors" />
         <module name="spring-orm-jdbc-transaction" />
         <module name="spring-ioc-appcontext-annotation" />
-        <module name="spring-ioc-resource" />
         <module name="spring-orm-jdbc-dao" />
       </profile>
     </annotationProcessing>

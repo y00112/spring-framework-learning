@@ -19,6 +19,8 @@
     <file url="file://$PROJECT_DIR$/spring-ioc-properties/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-ioc-resource/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-ioc-resource/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-javamail/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-javamail/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-mvc-project-async/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-mvc-project-async/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-mvc-project-cors/src/main/java" charset="UTF-8" />
