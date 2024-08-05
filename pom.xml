@@ -34,6 +34,9 @@
         <module>spring-mvc-project-async</module>
         <module>spring-mvc-project-websocket</module>
         <module>spring-javamail</module>
+        <module>spring-integration-jms</module>
+        <module>spring-integration-schedule</module>
+        <module>spring-integration-jmx</module>
     </modules>
 
     <properties>

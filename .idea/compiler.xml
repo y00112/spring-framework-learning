@@ -16,11 +16,14 @@
         <module name="spring-orm-hibernate" />
         <module name="spring-ioc-profile" />
         <module name="spring-aop-aspect" />
+        <module name="spring-integration-jmx" />
         <module name="spring-aop-annotation" />
         <module name="spring-framework-test" />
         <module name="spring-ioc-appcontext" />
+        <module name="spring-integration-schedule" />
         <module name="spring-ioc-resource" />
         <module name="spring-javamail" />
+        <module name="spring-integration-jms" />
         <module name="spring-mvc-project-filter" />
         <module name="spring-orm-zhaoyssdb-test" />
         <module name="spring-ioc-customize-bean" />
